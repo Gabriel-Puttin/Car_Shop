@@ -1,4 +1,4 @@
-interface IVehicles {
+interface IVehicle {
   id?: string;
   model: string;
   year: number;
@@ -7,4 +7,4 @@ interface IVehicles {
   buyValue: number;
 }
 
-export default IVehicles;
+export default IVehicle;

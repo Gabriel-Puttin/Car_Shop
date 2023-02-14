@@ -1,7 +1,7 @@
 import ICar from '../Interfaces/ICar';
-import Vehicles from './Vehicles';
+import Vehicle from './Vehicle';
 
-export default class Car extends Vehicles {
+export default class Car extends Vehicle {
   private doorsQty: number;
   private seatsQty: number;
 
