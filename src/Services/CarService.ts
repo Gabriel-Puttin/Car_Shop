@@ -30,4 +30,10 @@ export default class CarService {
     if (!car) throw new ErrorMap(404, 'Car not found');
     return car;
   }
+
+  public async updateCar(id: string, obj: ICar) {
+    const car = await carODM.update(id, obj);
+    if (!car) throw new ErrorMap(404, 'Car not found');
+    return car;
+  }
 }
