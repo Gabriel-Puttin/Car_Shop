@@ -30,4 +30,10 @@ export default class MotorcycleService {
     if (!motorcycle) throw new ErrorMap(404, 'Motorcycle not found');
     return motorcycle;
   }
+
+  public async updateMotorcycle(id: string, obj: IMotorcycle): Promise<IMotorcycle | null> {
+    const motorcycle = await motorcycleODM.update(id, obj);
+    if (!motorcycle) throw new ErrorMap(404, 'Motorcycle not found');
+    return motorcycle;
+  }
 }
