@@ -4,16 +4,18 @@ Aqui você vai encontrar os detalhes de como foi minha experiência durante o de
 
 # Sobre o projeto
 
-Este projeto teve como objetivo contruir uma API de um sistema de gerenciamento de vendas no formato dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas. Nesse projeto foi utilizada uma arquitetura de software do tipo MSC (model, service e controller), além de testes unitários utilizando as libes Chai, Mocha e Sinon para cobrir todo o código backend desenvolvido em Node.js e para fazer a conexão com o banco de dados MySQL. Também neste projeto foi utilizado o ESlint para deixar o código mais coeso e de fácil manutenção/alteração.
+Este projeto teve como objetivo a construção de uma API com CRUD para gerenciar uma concessionária de veículos utilizando os principios da Programação Orientada a Objetos (POO). Neste projeto foi feito utilizando o banco de dados MongoDB através do framework do Mongoose, utilizando uma arquitetura de software do tipo DDD (domain driven design) junto com o tipo MSC (model, service, controller), além de testes unitários utilizando as libes Chai, Mocha e Sinon para cobrir toda a camada Service do código backend desenvolvido em TypeScript. Também neste projeto foi utilizado o ESlint para deixar o código mais coeso e de fácil manutenção/alteração.
 
 # Stacks utilizadas
 
+* TypeScript
 * Node.js
 * Chai
 * Mocha
 * Sinon
 * Express.js
-* MySQL
+* MongoDB
+* Mongoose
 * Docker
 
 # Documentação
