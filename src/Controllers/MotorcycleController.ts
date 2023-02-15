@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleService from '../Services/MotorcycleService';
+import { IMongoMotorcycleObjReturn } from '../Interfaces/IMongoObjReturn';
 
 const HTTP_CREATED_STATUS = 201;
 const HTTP_OK_STATUS = 200;
@@ -18,7 +19,7 @@ export default class MotorcycleController {
     this.service = new MotorcycleService();
   }
 
-  private changeObj(obj: any) {
+  private changeObj(obj: IMongoMotorcycleObjReturn) {
     return {
       id: obj._id,
       model: obj.model,
@@ -55,7 +56,7 @@ export default class MotorcycleController {
     const { id } = this.req.params;
     try {
       const motorcycle = await this.service.getMotorcycleById(id);
-      return this.res.status(HTTP_OK_STATUS).json(this.changeObj(motorcycle));
+      return this.res.status(HTTP_OK_STATUS).json(this.changeObj(motorcycle as IMotorcycle));
     } catch (error) {
       this.next(error);
     }
@@ -65,7 +66,7 @@ export default class MotorcycleController {
     const { id } = this.req.params;
     try {
       const motorcycle = await this.service.updateMotorcycle(id, this.req.body);
-      return this.res.status(HTTP_OK_STATUS).json(this.changeObj(motorcycle));
+      return this.res.status(HTTP_OK_STATUS).json(this.changeObj(motorcycle as IMotorcycle));
     } catch (error) {
       this.next(error);
     }

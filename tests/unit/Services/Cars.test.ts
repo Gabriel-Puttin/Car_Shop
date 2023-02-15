@@ -5,8 +5,11 @@ import Car from '../../../src/Domains/Car';
 import { carInfo, carsArr } from '../../mocks/Cars.Mocks';
 import CarService from '../../../src/Services/CarService';
 
+const ERROR_ID = 'Invalid mongo id';
+const ID = '634852326b35b59438fbea2f';
+
 describe('Tests of routes "/cars"', function () {
-  it('should be possible create a new car', async function () {
+  it('should be possible to create a new car', async function () {
     // Arrange
     const carOutput = new Car(carInfo);
 
@@ -20,7 +23,7 @@ describe('Tests of routes "/cars"', function () {
     expect(result).to.be.deep.equal(carOutput);
   });
 
-  it('should be possible get all cars', async function () {
+  it('should be possible to get all cars', async function () {
     // Arrange
     const carOutput = carsArr.map((car) => new Car(car));
 
@@ -34,7 +37,7 @@ describe('Tests of routes "/cars"', function () {
     expect(result).to.be.deep.equal(carOutput);
   });
 
-  it('should be possible get one car by ID', async function () {
+  it('should be possible to get one car by ID', async function () {
     // Arrange
     const carOutput = new Car(carInfo);
 
@@ -42,15 +45,15 @@ describe('Tests of routes "/cars"', function () {
 
     // Act
     const service = new CarService();
-    const result = await service.getCarById('634852326b35b59438fbea2f');
+    const result = await service.getCarById(ID);
 
     // Assert
     expect(result).to.be.deep.equal(carOutput);
   });
 
-  it('should be unpossible get one car by invalid ID', async function () {
+  it('should be impossible to get one car by invalid ID', async function () {
     // Arrange
-    sinon.stub(Model, 'findById').throws(new Error('Invalid mongo id'));
+    sinon.stub(Model, 'findById').throws(new Error(ERROR_ID));
 
     // Act
     try {
@@ -58,21 +61,49 @@ describe('Tests of routes "/cars"', function () {
       await service.getCarById('Naruto');
     } catch (error) {
       // Assert
-      expect((error as Error).message).to.be.equal('Invalid mongo id');
+      expect((error as Error).message).to.be.equal(ERROR_ID);
     }
   });
 
-  it('should be unpossible get one car if none car has been found', async function () {
+  it('should be impossible to get one car if none has been found', async function () {
     // Arrange
     sinon.stub(Model, 'findById').resolves();
 
     // Act
     try {
       const service = new CarService();
-      await service.getCarById('634852326b35b59438fbea2f');
+      await service.getCarById(ID);
     } catch (error) {
       // Assert
       expect((error as Error).message).to.be.equal('Car not found');
+    }
+  });
+
+  it('should be possible to update one car by ID', async function () {
+    // Arrange
+    const carOutput = new Car(carInfo);
+
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+
+    // Act
+    const service = new CarService();
+    const result = await service.updateCar(ID, carInfo);
+
+    // Assert
+    expect(result).to.be.deep.equal(carOutput);
+  });
+
+  it('should be impossible to update one car if none has been found', async function () {
+    // Arrange
+    sinon.stub(Model, 'findByIdAndUpdate').resolves();
+
+    // Act
+    try {
+      const service = new CarService();
+      await service.updateCar(ID, carInfo);
+    } catch (error) {
+      // Assert
+      expect((error as Error).message).to.be.deep.equal('Car not found');
     }
   });
 

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import ICar from '../Interfaces/ICar';
 import CarService from '../Services/CarService';
+import { IMongoCarObjReturn } from '../Interfaces/IMongoObjReturn';
 
 const HTTP_CREATED_STATUS = 201;
 const HTTP_OK_STATUS = 200;
@@ -18,7 +19,7 @@ export default class CarController {
     this.service = new CarService();
   }
 
-  private changeObj(obj: any) {
+  private changeObj(obj: IMongoCarObjReturn) {
     return {
       id: obj._id,
       model: obj.model,
