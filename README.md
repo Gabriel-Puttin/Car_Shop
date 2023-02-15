@@ -34,11 +34,11 @@ Para a execução deste propjeto é necessário ter o Docker e o Docker-Compose 
 
 1. Clone o repositório (caso esteja usando chave SSH)
 ```
-git clone git@github.com:Gabriel-Puttin/Store_Manager.git
+git clone git@github.com:Gabriel-Puttin/Car_Shop.git
 ```
 2. Entre na pasta que você acabou de clonar
 ```
-cd Store_Manager
+cd Car_Shop
 ```
 3. Suba a aplicação com o docker-compose
 ```
@@ -46,17 +46,13 @@ docker-compose up -d
 ```
 4. Acesse o terminal do container backend criado
 ```
-docker exec -it store_manager bash
+docker exec -it car_shop bash
 ```
 5. Instale as dependências
 ```
 npm install
 ```
-6. Crie e gere o banco de dados no container
+6. Rode a aplicação
 ```
-npm run migration && npm run seed
-```
-7. Rode a aplicação
-```
-npm start
+npm run dev
 ```
