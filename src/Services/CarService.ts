@@ -4,6 +4,7 @@ import Car from '../Domains/Car';
 import ErrorMap from '../utils/ErrorMap';
 
 const carODM = new CarODM();
+const ERROR_CAR_NOT_FOUND = 'Car not found';
 
 export default class CarService {
   private createCarDomain(newCarObj: ICar | null): Car | null {
@@ -27,13 +28,19 @@ export default class CarService {
 
   public async getCarById(id: string) {
     const car = await carODM.getById(id);
-    if (!car) throw new ErrorMap(404, 'Car not found');
+    if (!car) throw new ErrorMap(404, ERROR_CAR_NOT_FOUND);
     return car;
   }
 
   public async updateCar(id: string, obj: ICar) {
     const car = await carODM.update(id, obj);
-    if (!car) throw new ErrorMap(404, 'Car not found');
+    if (!car) throw new ErrorMap(404, ERROR_CAR_NOT_FOUND);
+    return car;
+  }
+
+  public async deleteCar(id: string) {
+    const car = await carODM.delete(id);
+    if (!car) throw new ErrorMap(404, ERROR_CAR_NOT_FOUND);
     return car;
   }
 }

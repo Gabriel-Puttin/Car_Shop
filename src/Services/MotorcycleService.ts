@@ -4,6 +4,7 @@ import Motorcycle from '../Domains/Motorcycle';
 import ErrorMap from '../utils/ErrorMap';
 
 const motorcycleODM = new MotorcycleODM();
+const ERROR_MOTORCYCLE_NOT_FOUND = 'Motorcycle not found';
 
 export default class MotorcycleService {
   private createMotorcycleDomain(newMotorcycleObj: IMotorcycle | null): Motorcycle | null {
@@ -27,13 +28,19 @@ export default class MotorcycleService {
 
   public async getMotorcycleById(id: string): Promise<IMotorcycle | null> {
     const motorcycle = await motorcycleODM.getById(id);
-    if (!motorcycle) throw new ErrorMap(404, 'Motorcycle not found');
+    if (!motorcycle) throw new ErrorMap(404, ERROR_MOTORCYCLE_NOT_FOUND);
     return motorcycle;
   }
 
   public async updateMotorcycle(id: string, obj: IMotorcycle): Promise<IMotorcycle | null> {
     const motorcycle = await motorcycleODM.update(id, obj);
-    if (!motorcycle) throw new ErrorMap(404, 'Motorcycle not found');
+    if (!motorcycle) throw new ErrorMap(404, ERROR_MOTORCYCLE_NOT_FOUND);
+    return motorcycle;
+  }
+
+  public async deleteMotorcycle(id: string): Promise<IMotorcycle | null> {
+    const motorcycle = await motorcycleODM.delete(id);
+    if (!motorcycle) throw new ErrorMap(404, ERROR_MOTORCYCLE_NOT_FOUND);
     return motorcycle;
   }
 }

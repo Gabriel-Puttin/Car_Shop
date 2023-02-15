@@ -8,6 +8,8 @@ import {
 } from 'mongoose';
 import ErrorMap from '../utils/ErrorMap';
 
+const ERROR_ID = 'Invalid mongo id';
+
 export default abstract class AbstractODM<T> {
   protected model: Model<T>;
   protected schema: Schema;
@@ -29,17 +31,23 @@ export default abstract class AbstractODM<T> {
   }
 
   public async getById(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new ErrorMap(422, 'Invalid mongo id');
+    if (!isValidObjectId(_id)) throw new ErrorMap(422, ERROR_ID);
     return this.model.findById(_id);
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new ErrorMap(422, 'Invalid mongo id');
+    if (!isValidObjectId(_id)) throw new ErrorMap(422, ERROR_ID);
 
     return this.model.findByIdAndUpdate(
       { _id },
       { ...obj } as UpdateQuery<T>,
       { new: true },
     );
+  }
+
+  public async delete(_id: string): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw new ErrorMap(422, ERROR_ID);
+
+    return this.model.findByIdAndDelete({ _id });
   }
 }
